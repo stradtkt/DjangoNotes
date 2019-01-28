@@ -40,6 +40,7 @@ class CourseAdmin(admin.ModelAdmin):
     inlines = [TextInline, QuizInline]
     search_fields = ['title', 'description']
     list_filter = ['created_at', 'is_live', YearListFilter]
+    list_display = ['title', 'created_at', 'is_live', 'time_to_complete']
     
     
 class QuestionAdmin(admin.ModelAdmin):
@@ -49,6 +50,8 @@ class QuestionAdmin(admin.ModelAdmin):
     
 class QuizAdmin(admin.ModelAdmin):
     fields = ['course', 'title', 'description', 'order', 'total_questions']
+    list_display = ['prompt', 'quiz', 'order']
+    list_editable = ['quiz', 'order']
     
     
 class TextAdmin(admin.ModelAdmin):
