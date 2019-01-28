@@ -67,6 +67,12 @@ class TextAdmin(admin.ModelAdmin):
         })
     )
 
+    class Media:
+        js = ('js/vendor/markdown.js', 'js/preview.js')
+        css = {
+            'all': ('css/preview.css')
+        }
+
 
 admin.site.register(models.Course, CourseAdmin)
 admin.site.register(models.Text, TextAdmin)
