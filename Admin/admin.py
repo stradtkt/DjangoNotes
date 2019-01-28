@@ -16,7 +16,7 @@ class QuizInline(admin.StackedInline):
     model = models.Quiz
 
 
-class AnswerInline(admin.StackedInline):
+class AnswerInline(admin.TabularInline):
     model = models.Answer
 
 class YearListFilter(admin.SimpleListFilter):
@@ -46,6 +46,7 @@ class CourseAdmin(admin.ModelAdmin):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline,]
     search_fields = ['prompt']
+    radio_fields = {'quiz': admin.HORIZONTAL}
     
     
 class QuizAdmin(admin.ModelAdmin):
@@ -56,6 +57,15 @@ class QuizAdmin(admin.ModelAdmin):
     
 class TextAdmin(admin.ModelAdmin):
     fields = ['course', 'title', 'order', 'description']
+    fieldsets = (
+        (None, {
+            'fields': ('course', 'title', 'order', 'description')
+        }),
+        ('Add content', {
+            'fields': ('content',),
+            'classes': ('collapse',)
+        })
+    )
 
 
 admin.site.register(models.Course, CourseAdmin)
